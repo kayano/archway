@@ -1,6 +1,9 @@
 name: Run Interchain Test
 
 on:
+  push: 
+    branches:
+      - spoorthi/interchain-test
   workflow_dispatch:
     branches: [main]
 
