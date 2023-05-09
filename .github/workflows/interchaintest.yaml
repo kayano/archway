@@ -25,7 +25,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          path: chain
+          path: archway
       - name: Run interchain test
-        run: ./bin/interchaintest -matrix ./chain/archway/interchaintest_matrix.json
+        run: ./bin/interchaintest -matrix ./archway/interchaintest_matrix.json
     
