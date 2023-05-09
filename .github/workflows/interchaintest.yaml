@@ -21,6 +21,11 @@ jobs:
           go-version: ~1.19
       - name: Build
         run: make interchaintest
+        
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          path: chain
       - name: Run interchain test
-        run: ./bin/interchaintest
+        run: ./bin/interchaintest -matrix ./chain/archway/interchaintest_matrix.json
     
