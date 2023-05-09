@@ -1,0 +1,21 @@
+name: Run Interchain Test
+
+on:
+  workflow_dispatch:
+    branches: [main]
+
+jobs:
+  build-interchaintest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: strangelove-ventures/interchaintest
+      - name: Set up Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: ~1.19
+      - name: Build
+        run: make interchaintest
