@@ -7,6 +7,7 @@ LEDGER_ENABLED ?= true
 # SDK_PACK := $(shell go list -m github.com/cosmos/cosmos-sdk | sed  's/ /\@/g')
 BINDIR ?= $(GOPATH)/bin
 SIMAPP = ./app
+GORELEASER_VERSION = v1.19.5
 
 # for dockerized protobuf tools
 DOCKER := $(shell which docker)
@@ -17,6 +18,10 @@ CURRENT_DIR := $(shell pwd)
 
 # library versions
 LIBWASM_VERSION = $(shell go list -m -f '{{ .Version }}' github.com/CosmWasm/wasmvm)
+
+# Release environment variable
+RELEASE ?= false
+GORELEASER_SKIP_VALIDATE ?= false
 
 export GO111MODULE = on
 
@@ -88,6 +93,14 @@ ifeq ($(OS),Windows_NT)
 	exit 1
 else
 	go build -mod=readonly $(BUILD_FLAGS) -o build/archwayd ./cmd/archwayd
+endif
+
+build-all: go.sum
+ifeq ($(OS),Windows_NT)
+	echo unable to build on windows systems
+	exit 1
+else
+	docker run --rm -v "$(CURDIR)":/code -w /code -e LIBWASM_VERSION=$(LIBWASM_VERSION) goreleaser/goreleaser-cross:$(GORELEASER_VERSION) build --clean --skip-validate
 endif
 
 build-contract-tests-hooks:
@@ -193,19 +206,48 @@ proto-lint:
 proto-check-breaking:
 	@$(DOCKER_BUF) breaking --against-input $(HTTPS_GIT)#branch=master
 
-build-docker:
-	docker build . -t archwayd:latest
-
-
-build-release: build-docker
-	mkdir -p $(CURRENT_DIR)/releases
-	docker run --rm --platform linux/amd64 -ti -v $(CURRENT_DIR)/releases:/root/.archway --entrypoint /bin/sh archwayd:latest -c "cp /usr/bin/archwayd /root/.archway"
-
 localnet:
 	docker-compose up
 
+docker-build:
+	$(DOCKER) run \
+		--rm \
+		-e LIBWASM_VERSION=$(LIBWASM_VERSION) \
+		-e RELEASE=$(RELEASE) \
+		-e GITHUB_TOKEN="$(GITHUB_TOKEN)" \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v `pwd`:/go/src/github.com/archway-network/archway \
+		-w /go/src/github.com/archway-network/archway \
+		goreleaser/goreleaser-cross:$(GORELEASER_VERSION) \
+		--clean
+		--snapshot
+
+release-dryrun:
+	$(DOCKER) run \
+		--rm \
+		-e LIBWASM_VERSION=$(LIBWASM_VERSION) \
+		-e RELEASE=$(RELEASE) \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v `pwd`:/go/src/github.com/archway-network/archway \
+		-w /go/src/github.com/archway-network/archway \
+		goreleaser/goreleaser-cross:$(GORELEASER_VERSION) \
+		--skip-publish \
+		--clean \
+		--skip-validate
+
 release:
-	docker run --rm -v "$(CURDIR)":/code -w /code -e LIBWASM_VERSION=$(LIBWASM_VERSION) goreleaser/goreleaser-cross:v1.19.5 --skip-publish --rm-dist
+	$(DOCKER) run \
+		--rm \
+		-e LIBWASM_VERSION=$(LIBWASM_VERSION) \
+		-e RELEASE=$(RELEASE) \
+		-e GITHUB_TOKEN="$(GITHUB_TOKEN)" \
+		-v $(HOME)/.docker/config.json:/root/.docker/config.json \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v `pwd`:/go/src/github.com/archway-network/archway \
+		-w /go/src/github.com/archway-network/archway \
+		goreleaser/goreleaser-cross:$(GORELEASER_VERSION) \
+		--clean \
+		--skip-validate=$(GORELEASER_SKIP_VALIDATE)
 
 check-vuln-deps:
 	go list -json -deps ./... | docker run --rm -i sonatypecommunity/nancy:latest sleuth

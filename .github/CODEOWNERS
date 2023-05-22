@@ -1,0 +1,4 @@
+* @archway-network/Protocol
+
+.github/*   @archway-network/Protocol @archway-network/NetX
+ci/*        @archway-network/NetX

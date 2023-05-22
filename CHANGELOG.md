@@ -27,7 +27,38 @@ Contains bug fixes.
 
 Contains all the PRs that improved the code without changing the behaviours. 
 -->
+
 ## [Unreleased]
+
+### Added
+
+- [#387](https://github.com/archway-network/archway/pull/387)  - Add genmsgs module
+
+### Changed
+
+- [#383](https://github.com/archway-network/archway/pull/383), [#385](https://github.com/archway-network/archway/pull/385), [#386](https://github.com/archway-network/archway/pull/386) - upgrade wasmd to the v0.32.0-archway fork
+- [#388](https://github.com/archway-network/archway/pull/388) - add the ibc-go fee middleware
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Improvements
+
+
+## [v0.5.2]
+
+### Fixed
+
+- [#382](https://github.com/archway-network/archway/pull/382) - adjust default power reduction
+
+## [v0.5.0]
+
+### Breaking Changes 
+
+- [#357](https://github.com/archway-network/archway/pull/357) - Bumping the proto versions for x/rewards and x/tracking from `v1beta1` to `v1`
 
 ### Added
 
@@ -40,10 +71,28 @@ Contains all the PRs that improved the code without changing the behaviours.
     - Bug report template
     - Feature request template
     - General issue template
+- [#347](https://github.com/archway-network/archway/pull/347) - Unified release for cross compiled binaries and docker images
+- [#360](https://github.com/archway-network/archway/pull/360) - Fix github access token for release workflow
+- [#361](https://github.com/archway-network/archway/pull/361) - Readd missing deprecated Dockerhub build phase
+- [#362](https://github.com/archway-network/archway/pull/362) - wrong reference in the deploy pipeline
+- [#363](https://github.com/archway-network/archway/pull/363) - move safe dir up in the pipeline
+- [#364](https://github.com/archway-network/archway/pull/364) - add CODEOWNERS
+- [#365](https://github.com/archway-network/archway/pull/365) - add release tests
+- [#367](https://github.com/archway-network/archway/pull/367) - use snapshot for non release builds
+- [#372](https://github.com/archway-network/archway/pull/372) - add docker config to release pipeline
+- [#375](https://github.com/archway-network/archway/pull/375) - add missing colon from manifest
+- [#376](https://github.com/archway-network/archway/pull/376) - fix checksum naming
+- [#377](https://github.com/archway-network/archway/pull/377) - artifact naming
+- [#378](https://github.com/archway-network/archway/pull/378) - missing end parameter
+- [#380](https://github.com/archway-network/archway/pull/380) - titus deployment
 
 ### Fixed
 
 - [#365](https://github.com/archway-network/archway/pull/356) - x/rewards genesis runs before x/genutil to correctly process genesis txs.
+- [#366](https://github.com/archway-network/archway/pull/366) - github actions should fetch tags as well
+- [#368](https://github.com/archway-network/archway/pull/368) - github actions should fetch tags as well for deploy workflow
+- [#369](https://github.com/archway-network/archway/pull/369) - CODEOWNERS: small set to expand, not large set that filters
+- [#370](https://github.com/archway-network/archway/pull/370) - login to ghcr
 
 ### Changed
 
@@ -53,8 +102,6 @@ Contains all the PRs that improved the code without changing the behaviours.
     - docs/README.md
 - [#365](https://github.com/archway-network/archway/pull/356) - Disallow setting module accounts as reward address
 - [#355](https://github.com/archway-network/archway/pull/355) - chore: Update titus genesis defaults
-
-### Deprecated
 
 ### Removed
 
