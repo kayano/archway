@@ -23,7 +23,9 @@ jobs:
         run: make build
 
       - name: Move
-        run: mv ./build/archway ./
+        run: ls -a
+      - name: Tset
+        run: ls ./build
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
