@@ -11,36 +11,6 @@
         "Name": "juno",
         "Version": "latest"
       }
-    ],
-    [
-      {
-        "Name": "osmosis",
-        "Version": "latest"
-      },
-      {
-        "Name": "juno",
-        "Version": "latest"
-      }
-    ],
-    [
-      {
-        "Name": "axelar",
-        "Version": "latest"
-      },
-      {
-        "Name": "juno",
-        "Version": "latest"
-      }
-    ],
-    [
-      {
-        "Name": "juno",
-        "Version": "latest"
-      },
-      {
-        "Name": "juno",
-        "Version": "latest"
-      }
     ]
   ]
 }

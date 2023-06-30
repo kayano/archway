@@ -66,10 +66,18 @@ jobs:
           path: ./bin/interchaintest
           retention-days: 1
 
+  run-default: 
+    name: default
+    needs: [build_interchaintest,build_archway]
+    uses: ./.github/workflows/interchaintest_runner.yml
+    with:
+      test-matrix: 'interchaintest_matrix.json'
+
+
 
   cleanup:
     name: Delete artifacts 🗑️
-    needs: [build-archway,build-interchaintest]
+    needs: [run-default]
     runs-on: ubuntu-latest
 
     steps:
@@ -79,7 +87,7 @@ jobs:
           name: interchaintest
           failOnError: false
       
-      - name: Delete sg # Delete the stargaze docker image from workflow artifacts as its not needed anymore
+      - name: Delete sg # Delete the archway docker image from workflow artifacts as its not needed anymore
         uses: geekyeggo/delete-artifact@v2
         with:
           name: archway
