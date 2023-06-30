@@ -28,49 +28,87 @@ Contains bug fixes.
 Contains all the PRs that improved the code without changing the behaviours. 
 -->
 
-## [Unreleased]
+## [v1.0.0]
+
+Archway Network - Capture the value you create!
+
+
+## [v1.0.0-rc.4]
 
 ### Added
 
-- [#387](https://github.com/archway-network/archway/pull/387)  - Add genmsgs module
+- [#409](https://github.com/archway-network/archway/pull/409) - adding cosmwasm_1_1,cosmwasm_1_2 Cosmwasm capabilities
 
-### Changed
 
-- [#383](https://github.com/archway-network/archway/pull/383), [#385](https://github.com/archway-network/archway/pull/385), [#386](https://github.com/archway-network/archway/pull/386) - upgrade wasmd to the v0.32.0-archway fork
-- [#388](https://github.com/archway-network/archway/pull/388) - add the ibc-go fee middleware
-
-### Deprecated
+## [v1.0.0-rc.3]
 
 ### Removed
 
+- [#408](https://github.com/archway-network/archway/pull/408) - Remove genesis msg logging as it impacts network start up performance.
+
+## [v1.0.0-rc.2]
+
+### Fixes
+
+- [#401](https://github.com/archway-network/archway/pull/401) - Update libwasmvm version to correct one in Dockerfile.deprecated
+- [#402](https://github.com/archway-network/archway/pull/402) - Bump wasmvm version to 1.2.4
+- [#403](https://github.com/archway-network/archway/pull/403) - Update libwasmvm version to correct one for wasmvm 1.2.4
+- [#404](https://github.com/archway-network/archway/pull/403) - Fixing typo in rewards query cli
+- [#406](https://github.com/archway-network/archway/pull/406) - Add upgrade hanlder for v0.6.0 back to prevent downgrade check from panic / consensus failure;
+
+## [v1.0.0-rc.1]
+
+### Removed
+
+- [#399](https://github.com/archway-network/archway/pull/399) - Removing the upgrade handler for v1 release
+
+## [v0.6.0]
+
+### Added
+
+- [#387](https://github.com/archway-network/archway/pull/387) - Add genmsgs module
+- [#388](https://github.com/archway-network/archway/pull/388) - Add the ibc-go fee middleware
+- [#389](https://github.com/archway-network/archway/pull/389) - Add v0.6 upgrade handler
+- [#391](https://github.com/archway-network/archway/pull/391) - Add snapshot manager to enable state-synd for wasm
+- [#395](https://github.com/archway-network/archway/pull/395) - Add openapi.yml + generate openapi.yml on proto-swagger-gen
+- [#396](https://github.com/archway-network/archway/pull/396) - Add repository licenses
+
+### Changed
+
+- [#373](https://github.com/archway-network/archway/pull/373) - Update codeowners
+- [#383](https://github.com/archway-network/archway/pull/383), [#385](https://github.com/archway-network/archway/pull/385), [#386](https://github.com/archway-network/archway/pull/386) - upgrade wasmd to the v0.32.0-archway fork
+- [#388](https://github.com/archway-network/archway/pull/388) - Add the ibc-go fee middleware
+- [#390](https://github.com/archway-network/archway/pull/390) - Update cosmos-sdk version from v0.45.15 to v0.15.16
+
 ### Fixed
 
-### Improvements
-
+- [#392](https://github.com/archway-network/archway/pull/392) - Update to ibc-go v4.3.1 for huckleberry
+- [#393](https://github.com/archway-network/archway/pull/393) - Add audit remediations
+- [#397](https://github.com/archway-network/archway/pull/397) - Fix map iteration
 
 ## [v0.5.2]
 
 ### Fixed
 
-- [#382](https://github.com/archway-network/archway/pull/382) - adjust default power reduction
+- [#382](https://github.com/archway-network/archway/pull/382) - Adjust default power reduction
 
 ## [v0.5.0]
 
-### Breaking Changes 
+### Breaking Changes
 
-- [#357](https://github.com/archway-network/archway/pull/357) - Bumping the proto versions for x/rewards and x/tracking from `v1beta1` to `v1`
+- [#357](https://github.com/archway-network/archway/pull/357) - Bump the proto versions for x/rewards and x/tracking from `v1beta1` to `v1`
 
 ### Added
 
 - [#330](https://github.com/archway-network/archway/pull/330) - Proper chain upgrade flow.
 - [#351](https://github.com/archway-network/archway/pull/351) - Add minimum price of gas.
-- [#339](https://github.com/archway-network/archway/pull/339) - Updates & Quality Control
-    - Community Contribution Guidelines
-    - Security Policy
-    - ADR Log Index
-    - Bug report template
-    - Feature request template
-    - General issue template
+- [#339](https://github.com/archway-network/archway/pull/339) - Update & Quality Control
+  - Community Contribution Guidelines
+  - Security Policy
+  - ADR Log Index
+  - Bug report template
+  - Feature request template
+  - General issue template
 - [#347](https://github.com/archway-network/archway/pull/347) - Unified release for cross compiled binaries and docker images
 - [#360](https://github.com/archway-network/archway/pull/360) - Fix github access token for release workflow
 - [#361](https://github.com/archway-network/archway/pull/361) - Readd missing deprecated Dockerhub build phase
@@ -98,8 +136,8 @@ Contains all the PRs that improved the code without changing the behaviours.
 
 - [#320](https://github.com/archway-network/archway/pull/320) - Run the lint and test GH actions on all PRs
 - [#339](https://github.com/archway-network/archway/pull/339) - Updates & Quality Control
-    - README.md
-    - docs/README.md
+  - README.md
+  - docs/README.md
 - [#365](https://github.com/archway-network/archway/pull/356) - Disallow setting module accounts as reward address
 - [#355](https://github.com/archway-network/archway/pull/355) - chore: Update titus genesis defaults
 
@@ -122,7 +160,6 @@ Contains all the PRs that improved the code without changing the behaviours.
 ### Fixed
 
 - [#335](https://github.com/archway-network/archway/pull/335) - fixed `EstimateTxFees` erroring when minConsFee and contract premium are same denom
-
 
 ## [v0.3.0]
 
@@ -149,7 +186,6 @@ Contains all the PRs that improved the code without changing the behaviours.
 - [#217](https://github.com/archway-network/archway/pull/217) - improve the x/rewards withdraw UX by using defaults when params are unset.
 - [#227](https://github.com/archway-network/archway/pull/227) - flatten wasmbindings query struct
 
-
 ### Changed
 
 - [#180](https://github.com/archway-network/archway/pull/180) - add x/gastracking params
@@ -162,7 +198,7 @@ Contains all the PRs that improved the code without changing the behaviours.
 
 ### Deprecated
 
-### Removed 
+### Removed
 
 - [#206](https://github.com/archway-network/archway/pull/206) - remove the legacy x/gastracking module in favour of x/rewards and x/tracking
 
@@ -199,19 +235,23 @@ Contains all the PRs that improved the code without changing the behaviours.
 ## v0.0.5
 
 ### Breaking Changes
+
 - Update wasmd to 0.25.
 
 ### Fixed
+
 - Fix logs printing total contract rewards instead of gas rebate reward.
 - Replace info logs for debug logs.
 
 ## v0.0.4
 
 ### Breaking Changes
+
 - Replace wasmd KV store to KV Multistore.
 - Split WasmVM gas & SDK Gas.
 
 ## v0.0.3
+
 - inflation reward calculation now depend upon block gas limit.
 - inflation reward is given even when the gas rebate to the user flag is true.
 - gastracker's begin blocker takes into account gas rebate to user governance switch.

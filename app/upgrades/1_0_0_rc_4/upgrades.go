@@ -1,4 +1,4 @@
-package upgrade052
+package upgrade1_0_0_rc_4
 
 import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
@@ -9,7 +9,7 @@ import (
 	"github.com/archway-network/archway/app/upgrades"
 )
 
-const Name = "v0.5.2"
+const Name = "v1.0.0-rc.4"
 
 var Upgrade = upgrades.Upgrade{
 	UpgradeName: Name,
