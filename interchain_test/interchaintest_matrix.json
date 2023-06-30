@@ -23,7 +23,7 @@
         "Bin": "archwayd",
         "Bech32Prefix": "archway",
         "Denom": "aarch",
-        "GasPrices": "1500000000000aarch",
+        "GasPrices": "2000000000000aarch",
         "GasAdjustment": 1.3,
         "TrustingPeriod": "504h"
       }
