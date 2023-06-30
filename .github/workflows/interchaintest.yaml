@@ -52,7 +52,7 @@ jobs:
           repository: strangelove-ventures/interchaintest
 
       - name: Set up Golang
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
           go-version-file: 'go.mod'
 
@@ -65,3 +65,23 @@ jobs:
           name: interchaintest
           path: ./bin/interchaintest
           retention-days: 1
+
+
+  cleanup:
+    name: Delete artifacts 🗑️
+    needs: [build-archway,build-interchaintest]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Delete interchaintest # Delete the binary from workflow artifacts as its not needed anymore
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: interchaintest
+          failOnError: false
+      
+      - name: Delete sg # Delete the stargaze docker image from workflow artifacts as its not needed anymore
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: archway
+          failOnError: false
+        
