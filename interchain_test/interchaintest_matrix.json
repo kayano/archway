@@ -1,0 +1,32 @@
+{
+  "Relayers": ["rly"],
+
+  "ChainSets": [
+    [
+      {
+        "Name": "gaia",
+        "Version": "latest"
+      },
+      {
+        "NumValidators": 2,
+        "NumFullNodes": 1,
+        "Type": "cosmos",
+        "Name": "local-archway",
+        "ChainID": "testing",
+        "Images": [
+          {
+            "Repository": "archway",
+            "Version": "local",
+            "UidGid": "1025:1025"
+          }
+        ],
+        "Bin": "archwayd",
+        "Bech32Prefix": "archway",
+        "Denom": "aarch",
+        "GasPrices": "1500000000000aarch",
+        "GasAdjustment": 1.3,
+        "TrustingPeriod": "504h"
+      }
+    ]
+  ]
+}

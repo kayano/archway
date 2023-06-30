@@ -71,9 +71,7 @@ jobs:
     needs: [build-interchaintest,build-archway]
     uses: ./.github/workflows/interchaintest_runner.yml
     with:
-      test-matrix: 'interchaintest_matrix.json'
-
-
+      test-matrix: 'interchain_test/interchaintest_matrix.json'
 
   cleanup:
     name: Delete artifacts 🗑️
