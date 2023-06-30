@@ -7,26 +7,55 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-interchaintest:
+  build-archway:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          repository: strangelove-ventures/interchaintest
-          ref: v4
+
       - name: Set up Golang
         uses: actions/setup-go@v3
         with:
-          go-version: ~1.19
-      - name: Build
-        run: make interchaintest
-        
-      - name: Checkout code
-        uses: actions/checkout@v3
+          go-version-file: 'go.mod'
+
+      - name: Set up Docker Buildx
+        run: docker/setup-buildx-action@v2
+
+      - name: Build Archway docker image
+        uses: docker/build-push-action@v4
         with:
-          path: archway
-      - name: Run interchain test
-        run: ./bin/interchaintest -matrix ./archway/interchaintest_matrix.json
+          context: .
+          tags: archway:local
+          outputs: type=docker,dest=/tmp/archway.tar
+        
+      - name: Upload the docker image
+        uses: actions/upload-artifact@v3
+        with:
+          name: archway
+          path: /tmp/archway.tar
+          retention-days: 1
+    
+
+  # run-interchaintest:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #       with:
+  #         repository: strangelove-ventures/interchaintest
+  #     - name: Set up Golang
+  #       uses: actions/setup-go@v3
+  #       with:
+  #         go-version: ~1.19
+  #     - name: Build
+  #       run: make interchaintest
+        
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #       with:
+  #         path: archway
+  #     - name: Run interchain test
+  #       run: ./bin/interchaintest -matrix ./archway/interchaintest_matrix.json
     
