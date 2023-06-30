@@ -68,7 +68,7 @@ jobs:
 
   run-default: 
     name: default
-    needs: [build_interchaintest,build_archway]
+    needs: [build-interchaintest,build-archway]
     uses: ./.github/workflows/interchaintest_runner.yml
     with:
       test-matrix: 'interchaintest_matrix.json'
