@@ -70,6 +70,8 @@ message SourceBuilder {
     string image = 1; 
     // Docker image tag. e.g 0.12.6
     string tag = 2;
+    // Name of the generated contract binary. e.g counter.wasm
+    string contract_name = 3;
 }
 ```
 This information can only be modified by the user who uploaded the contract binary. Even though Code IDs are unique to binary, we should make these fields modifyable over time to allow for fixing erroneous values and updating contacts.
