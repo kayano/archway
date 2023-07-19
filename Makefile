@@ -29,30 +29,30 @@ export GO111MODULE = on
 
 build_tags = netgo
 ifeq ($(LEDGER_ENABLED),true)
-  ifeq ($(OS),Windows_NT)
-    GCCEXE = $(shell where gcc.exe 2> NUL)
-    ifeq ($(GCCEXE),)
-      $(error gcc.exe not installed for ledger support, please install or set LEDGER_ENABLED=false)
-    else
-      build_tags += ledger
-    endif
-  else
-    UNAME_S = $(shell uname -s)
-    ifeq ($(UNAME_S),OpenBSD)
-      $(warning OpenBSD detected, disabling ledger support (https://github.com/cosmos/cosmos-sdk/issues/1988))
-    else
-      GCC = $(shell command -v gcc 2> /dev/null)
-      ifeq ($(GCC),)
-        $(error gcc not installed for ledger support, please install or set LEDGER_ENABLED=false)
-      else
-        build_tags += ledger
-      endif
-    endif
-  endif
+	ifeq ($(OS),Windows_NT)
+		GCCEXE = $(shell where gcc.exe 2> NUL)
+		ifeq ($(GCCEXE),)
+			$(error gcc.exe not installed for ledger support, please install or set LEDGER_ENABLED=false)
+		else
+			build_tags += ledger
+		endif
+	else
+		UNAME_S = $(shell uname -s)
+		ifeq ($(UNAME_S),OpenBSD)
+			$(warning OpenBSD detected, disabling ledger support (https://github.com/cosmos/cosmos-sdk/issues/1988))
+		else
+			GCC = $(shell command -v gcc 2> /dev/null)
+			ifeq ($(GCC),)
+				$(error gcc not installed for ledger support, please install or set LEDGER_ENABLED=false)
+			else
+				build_tags += ledger
+			endif
+		endif
+	endif
 endif
 
 ifeq ($(WITH_CLEVELDB),yes)
-  build_tags += gcc
+	build_tags += gcc
 endif
 build_tags += $(BUILD_TAGS)
 build_tags := $(strip $(build_tags))
@@ -65,14 +65,14 @@ build_tags_comma_sep := $(subst $(empty),$(comma),$(build_tags))
 # process linker flags
 
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=archwayd \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=archwayd \
-		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
-		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
-		  -X github.com/archway-network/archwayd/app.Bech32Prefix=archway \
-		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)"
+			-X github.com/cosmos/cosmos-sdk/version.AppName=archwayd \
+			-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
+			-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
+			-X github.com/archway-network/archwayd/app.Bech32Prefix=archway \
+			-X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)"
 
 ifeq ($(WITH_CLEVELDB),yes)
-  ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
+	ldflags += -X github.com/cosmos/cosmos-sdk/types.DBBackend=cleveldb
 endif
 ifeq ($(LINK_STATICALLY),true)
 	ldflags += -linkmode=external -extldflags "-Wl,-z,muldefs -static"
@@ -242,7 +242,6 @@ release:
 		-e LIBWASM_VERSION=$(LIBWASM_VERSION) \
 		-e RELEASE=$(RELEASE) \
 		-e GITHUB_TOKEN="$(GITHUB_TOKEN)" \
-		-v $(HOME)/.docker/config.json:/root/.docker/config.json \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v `pwd`:/go/src/github.com/archway-network/archway \
 		-w /go/src/github.com/archway-network/archway \
